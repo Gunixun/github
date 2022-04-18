@@ -1,7 +1,8 @@
-package gunixun.github
+package gunixun.github.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import gunixun.github.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
