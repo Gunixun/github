@@ -5,11 +5,16 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
+import com.google.android.material.snackbar.Snackbar
+import gunixun.github.R
 import gunixun.github.app
 import gunixun.github.databinding.FragmentProfileDetailsBinding
 import gunixun.github.domain.entities.Profile
 import gunixun.github.ui.BaseFragment
 import gunixun.github.ui.utils.AppState
+import gunixun.github.ui.utils.createErrSnackBar
+import gunixun.github.ui.utils.createMsgSnackBar
+import gunixun.github.ui.utils.hideSnackBar
 
 class ProfileDetailsFragment :
     BaseFragment<FragmentProfileDetailsBinding>(FragmentProfileDetailsBinding::inflate) {
@@ -23,6 +28,9 @@ class ProfileDetailsFragment :
             requireActivity().app.reposDataSource
         )
     }
+
+    private var retryIter: Int = 0
+    private var snackBar: Snackbar? = null
 
     companion object {
         const val ARG_PARAM = "login profile"
@@ -44,10 +52,7 @@ class ProfileDetailsFragment :
         setupUi()
         connectSignals()
         setProfileData()
-
-        if (savedInstanceState == null){
-            getData()
-        }
+        getData()
     }
 
     private fun setupUi() {
@@ -62,7 +67,7 @@ class ProfileDetailsFragment :
 
     }
 
-    private fun setProfileData(){
+    private fun setProfileData() {
         profile?.let {
             binding.avatarImageView.load(it.avatar_url)
             binding.loginTextView.text = it.login
@@ -87,16 +92,28 @@ class ProfileDetailsFragment :
         when (result) {
             is AppState.Loading -> {
                 binding.progressBar.isVisible = true
+                hideSnackBar(snackBar)
             }
             is AppState.SuccessRepos -> {
                 adapter.setData(result.repos)
             }
             is AppState.Error -> {
-
+                if (retryIter < 3) {
+                    snackBar = binding.root.createErrSnackBar(
+                        text = result.error.toString(),
+                        actionText = R.string.retry,
+                        { getData() }
+                    )
+                    snackBar?.show()
+                } else {
+                    binding.root.createMsgSnackBar(
+                        text = this.resources.getString(R.string.fall_load_data)
+                    ).show()
+                }
+                retryIter++
             }
             else -> {}
         }
     }
-
 
 }
