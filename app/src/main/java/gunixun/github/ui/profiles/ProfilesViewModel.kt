@@ -1,4 +1,4 @@
-package gunixun.github.ui.user_acconts
+package gunixun.github.ui.profiles
 
 import androidx.lifecycle.MutableLiveData
 import gunixun.github.domain.entities.Profile

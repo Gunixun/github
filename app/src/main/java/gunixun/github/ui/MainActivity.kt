@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import gunixun.github.R
 import gunixun.github.databinding.ActivityMainBinding
-import gunixun.github.ui.user_acconts.ProfilesFragment
+import gunixun.github.ui.profiles.ProfilesFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding

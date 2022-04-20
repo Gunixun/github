@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">github</string>
     <string name="empty">Данные отсутствуют</string>
+    <string name="avatar_description">Аватар пользователя</string>
 </resources>
