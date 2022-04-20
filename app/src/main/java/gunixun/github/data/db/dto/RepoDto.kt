@@ -1,7 +1,7 @@
 package gunixun.github.data.db.dto
 
 data class RepoDto (
-    val id: String,
+    val id: Int,
     val name: String,
     val full_name: String,
     val html_url: String,

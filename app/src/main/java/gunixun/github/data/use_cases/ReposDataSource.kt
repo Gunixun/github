@@ -1,22 +1,23 @@
 package gunixun.github.data.use_cases
 
 import gunixun.github.domain.IGitHubApi
-import gunixun.github.domain.entities.Profile
-import gunixun.github.domain.use_cases.ProfilesUseCase
+import gunixun.github.domain.entities.Repo
+import gunixun.github.domain.use_cases.ReposUseCase
 import gunixun.github.utils.CallbackData
 
 
-class ProfilesDataSource(
+class ReposDataSource(
     private val api: IGitHubApi
-) : ProfilesUseCase {
+) : ReposUseCase {
 
-    override fun getProfiles(
-        callback: CallbackData<List<Profile>>
+    override fun getRepos(
+        loginProfile: String,
+        callback: CallbackData<List<Repo>>
     ) {
         Thread {
             try {
                 callback.onSuccess(
-                    api.getProfiles()
+                    api.getRepos(loginProfile)
                 )
             } catch (exc: Exception) {
                 callback.onError(exc)

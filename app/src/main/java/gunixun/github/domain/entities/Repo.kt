@@ -1,7 +1,7 @@
 package gunixun.github.domain.entities
 
 data class Repo(
-    val id: String,
+    val id: Int,
     val name: String,
     val full_name: String,
     val html_url: String,

@@ -1,11 +1,11 @@
 package gunixun.github.domain.use_cases
 
-import gunixun.github.domain.entities.Repos
+import gunixun.github.domain.entities.Repo
 import gunixun.github.utils.CallbackData
 
-internal interface ReposUseCase {
+interface ReposUseCase {
     fun getRepos(
         loginProfile: String,
-        callback: CallbackData<Repos>
+        callback: CallbackData<List<Repo>>
     )
 }
