@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import gunixun.github.R
 import gunixun.github.databinding.ActivityMainBinding
-import gunixun.github.ui.user_acconts.UserAccountsFragment
+import gunixun.github.ui.user_acconts.ProfilesFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setHomePage() {
-        navigationTo(UserAccountsFragment.newInstance(), false)
+        navigationTo(ProfilesFragment.newInstance(), false)
     }
 
 }
