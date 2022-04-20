@@ -3,7 +3,6 @@ package gunixun.github
 import android.app.Application
 import android.content.Context
 import gunixun.github.data.InMemoryGitHubApi
-import gunixun.github.data.use_cases.ProfileDataSource
 import gunixun.github.data.use_cases.ProfilesDataSource
 import gunixun.github.data.use_cases.ReposDataSource
 import gunixun.github.domain.IGitHubApi
@@ -16,9 +15,6 @@ class App : Application() {
 
     val profilesDataSource: ProfilesUseCase by lazy {
         ProfilesDataSource(app.gitHubApi)
-    }
-    val profileDataSource: ProfileUseCase by lazy {
-        ProfileDataSource(app.gitHubApi)
     }
     val reposDataSource: ReposUseCase by lazy {
         ReposDataSource(app.gitHubApi)

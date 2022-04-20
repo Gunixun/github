@@ -7,7 +7,7 @@ import gunixun.github.R
 import gunixun.github.databinding.ActivityMainBinding
 import gunixun.github.ui.profiles.ProfilesFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationActivity {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun navigationTo(fragment: Fragment, withTransaction: Boolean) {
+    override fun navigationTo(fragment: Fragment, withTransaction: Boolean) {
         val transaction = supportFragmentManager
             .beginTransaction()
             .replace(R.id.container, fragment)
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setHomePage() {
-        navigationTo(ProfilesFragment.newInstance(), false)
+        navigationTo(ProfilesFragment.newInstance())
     }
 
 }

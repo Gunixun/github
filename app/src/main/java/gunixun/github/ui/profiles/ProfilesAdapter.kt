@@ -16,8 +16,6 @@ class ProfilesAdapter : RecyclerView.Adapter<ProfilesAdapter.ProfileViewHolder>(
 
     private var listData: MutableList<Profile> = arrayListOf()
 
-
-    @SuppressLint("NotifyDataSetChanged")
     fun setData(data: List<Profile>) {
         val diffResult = DiffUtil.calculateDiff(DiffUtilsCallback(listData, data))
         diffResult.dispatchUpdatesTo(this)

@@ -8,6 +8,8 @@ import gunixun.github.app
 import gunixun.github.databinding.FragmentProfilesBinding
 import gunixun.github.domain.entities.Profile
 import gunixun.github.ui.BaseFragment
+import gunixun.github.ui.NavigationActivity
+import gunixun.github.ui.profile_details.ProfileDetailsFragment
 import gunixun.github.ui.utils.AppState
 
 class ProfilesFragment :
@@ -28,13 +30,20 @@ class ProfilesFragment :
 
         setupUi()
         connectSignals()
-        viewModel.getUserAccounts()
+        if (savedInstanceState == null){
+            viewModel.getUserAccounts()
+        }
     }
 
     private fun setupUi(){
         adapter = ProfilesAdapter()
         adapter.setOnClick(object : ProfilesAdapter.OnClick {
             override fun onClick(profile: Profile) {
+                activity?.let {
+                    if (it is NavigationActivity) {
+                        it.navigationTo(ProfileDetailsFragment.newInstance(profile), true)
+                    }
+                }
             }
         })
 
