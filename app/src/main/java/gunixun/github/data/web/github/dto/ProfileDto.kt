@@ -1,4 +1,4 @@
-package gunixun.github.data.db.dto
+package gunixun.github.data.web.github.dto
 
 data class ProfileDto (
     val id: Int,

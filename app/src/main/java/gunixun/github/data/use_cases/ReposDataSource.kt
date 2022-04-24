@@ -1,27 +1,17 @@
 package gunixun.github.data.use_cases
 
-import gunixun.github.domain.IGitHubApi
+import gunixun.github.domain.ProjectRepo
 import gunixun.github.domain.entities.Repo
 import gunixun.github.domain.use_cases.ReposUseCase
 import gunixun.github.utils.CallbackData
+import io.reactivex.rxjava3.core.Single
 
 
 class ReposDataSource(
-    private val api: IGitHubApi
+    private val api: ProjectRepo
 ) : ReposUseCase {
 
-    override fun getRepos(
-        loginProfile: String,
-        callback: CallbackData<List<Repo>>
-    ) {
-        Thread {
-            try {
-                callback.onSuccess(
-                    api.getRepos(loginProfile)
-                )
-            } catch (exc: Exception) {
-                callback.onError(exc)
-            }
-        }.start()
+    override fun getRepos(loginProfile: String): Single<List<Repo>> {
+        return api.getRepos(loginProfile)
     }
 }

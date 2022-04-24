@@ -1,6 +1,5 @@
 package gunixun.github.ui.profiles
 
-import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,7 +77,7 @@ class ProfilesAdapter : RecyclerView.Adapter<ProfilesAdapter.ProfileViewHolder>(
     inner class ProfileViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         fun bind(data: Profile) {
             FragmentProfileItemBinding.bind(itemView).apply {
-                avatarImageView.load(data.avatar_url)
+                avatarImageView.load(data.avatarUrl)
                 loginTextView.text = data.login
                 nameTextView.text = data.name
                 itemView.setOnClickListener {

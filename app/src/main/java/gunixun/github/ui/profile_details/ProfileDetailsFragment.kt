@@ -23,8 +23,8 @@ class ProfileDetailsFragment :
 
     var profile: Profile? = null
 
-    private val viewModel: ProfileDetailsContract.ViewModel by lazy {
-        ProfileDetailsViewModel(
+    private val viewModel: ReposContract.ViewModel by lazy {
+        ReposViewModel(
             requireActivity().app.reposDataSource
         )
     }
@@ -69,7 +69,7 @@ class ProfileDetailsFragment :
 
     private fun setProfileData() {
         profile?.let {
-            binding.avatarImageView.load(it.avatar_url)
+            binding.avatarImageView.load(it.avatarUrl)
             binding.loginTextView.text = it.login
         }
     }
