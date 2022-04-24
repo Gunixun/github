@@ -1,6 +1,7 @@
 package gunixun.github.ui.profile_details
 
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import gunixun.github.domain.use_cases.ReposUseCase
 import gunixun.github.ui.utils.AppState
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -8,7 +9,7 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 
 class ReposViewModel(
     private val reposDataSource: ReposUseCase
-) : ReposContract.ViewModel {
+) : ViewModel(), ReposContract.ViewModel {
 
     private val liveData: MutableLiveData<AppState> = MutableLiveData()
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
@@ -31,4 +32,8 @@ class ReposViewModel(
         )
     }
 
+    override fun onCleared() {
+        compositeDisposable.clear()
+        super.onCleared()
+    }
 }
