@@ -1,7 +1,5 @@
 package gunixun.github.ui.profile_details
 
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -10,7 +8,7 @@ import gunixun.github.domain.entities.Repo
 import gunixun.github.utils.Change
 import gunixun.github.utils.createCombinePayloads
 
-class ReposAdapter : RecyclerView.Adapter<ReposAdapter.RepoViewHolder>() {
+class ReposAdapter : RecyclerView.Adapter<RepoViewHolder>() {
 
     private var listData: MutableList<Repo> = arrayListOf()
 
@@ -22,12 +20,7 @@ class ReposAdapter : RecyclerView.Adapter<ReposAdapter.RepoViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RepoViewHolder {
-        val binding = FragmentRepoItemBinding.inflate(
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-        return RepoViewHolder(binding.root)
+        return RepoViewHolder.createView(parent)
     }
 
     override fun onBindViewHolder(holder: RepoViewHolder, position: Int) {
@@ -59,15 +52,6 @@ class ReposAdapter : RecyclerView.Adapter<ReposAdapter.RepoViewHolder>() {
 
         } else {
             super.onBindViewHolder(holder, position, payloads)
-        }
-    }
-
-    inner class RepoViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        fun bind(data: Repo) {
-            FragmentRepoItemBinding.bind(itemView).apply {
-                titleRepoTextView.text = data.name
-                data.description?.let { descriptionTextView.text = it }
-            }
         }
     }
 

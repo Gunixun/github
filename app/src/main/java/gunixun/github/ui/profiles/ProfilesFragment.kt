@@ -1,5 +1,6 @@
 package gunixun.github.ui.profiles
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
@@ -10,8 +11,6 @@ import gunixun.github.app
 import gunixun.github.databinding.FragmentProfilesBinding
 import gunixun.github.domain.entities.Profile
 import gunixun.github.ui.BaseFragment
-import gunixun.github.ui.NavigationActivity
-import gunixun.github.ui.profile_details.ProfileDetailsFragment
 import gunixun.github.ui.utils.AppState
 import gunixun.github.ui.utils.createErrSnackBar
 import gunixun.github.ui.utils.createMsgSnackBar
@@ -26,11 +25,25 @@ class ProfilesFragment :
         ProfilesViewModel(requireActivity().app.profilesDataSource)
     }
 
+    private val controller by lazy { activity as Controller }
+
     private var retryIter: Int = 0
     private var snackBar: Snackbar? = null
 
+    interface Controller {
+        fun openProfileDetailsScreen(profile: Profile)
+    }
+
     companion object {
         fun newInstance() = ProfilesFragment()
+    }
+
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (activity !is Controller) {
+            throw IllegalStateException(getString(R.string.activity_on_attach_err))
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -43,17 +56,9 @@ class ProfilesFragment :
     }
 
     private fun setupUi() {
-        adapter = ProfilesAdapter()
-        adapter.setOnClick(object : ProfilesAdapter.OnClick {
-            override fun onClick(profile: Profile) {
-                activity?.let {
-                    if (it is NavigationActivity) {
-                        it.navigationTo(ProfileDetailsFragment.newInstance(profile), true)
-                    }
-                }
-            }
-        })
-
+        adapter = ProfilesAdapter {
+            controller.openProfileDetailsScreen(it)
+        }
         binding.profilesRecycler.layoutManager = LinearLayoutManager(
             requireContext(),
             LinearLayoutManager.VERTICAL,
