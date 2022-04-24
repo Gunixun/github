@@ -5,9 +5,14 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import gunixun.github.R
 import gunixun.github.databinding.ActivityMainBinding
+import gunixun.github.domain.entities.Profile
+import gunixun.github.ui.profile_details.ProfileDetailsFragment
 import gunixun.github.ui.profiles.ProfilesFragment
 
-class MainActivity : AppCompatActivity(), NavigationActivity {
+class MainActivity :
+    AppCompatActivity(),
+    ProfilesFragment.Controller
+{
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,7 +26,7 @@ class MainActivity : AppCompatActivity(), NavigationActivity {
         }
     }
 
-    override fun navigationTo(fragment: Fragment, withTransaction: Boolean) {
+    private fun navigationTo(fragment: Fragment, withTransaction: Boolean = false) {
         val transaction = supportFragmentManager
             .beginTransaction()
             .replace(R.id.container, fragment)
@@ -38,4 +43,7 @@ class MainActivity : AppCompatActivity(), NavigationActivity {
         navigationTo(ProfilesFragment.newInstance())
     }
 
+    override fun openProfileDetailsScreen(profile: Profile) {
+        navigationTo(ProfileDetailsFragment.newInstance(profile), true)
+    }
 }
