@@ -1,29 +1,30 @@
-package gunixun.github.ui.profiles
+package gunixun.github.ui.profile_details
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import gunixun.github.domain.use_cases.ProfilesUseCase
+import gunixun.github.domain.use_cases.ReposUseCase
 import gunixun.github.ui.utils.AppState
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.subscribeBy
 
-class ProfilesViewModel(
-    private val profilesDataSource: ProfilesUseCase
-) : ViewModel(), ProfilesContract.ViewModel {
+class ReposViewModel(
+    private val reposDataSource: ReposUseCase
+) : ViewModel(), ReposContract.ViewModel {
 
     private val liveData: MutableLiveData<AppState> = MutableLiveData()
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
     override fun getLiveData(): MutableLiveData<AppState> = liveData
 
-    override fun getUserAccounts() {
+    override fun getRepos(loginProfile: String) {
         liveData.postValue(AppState.Loading)
+
         compositeDisposable.add(
-            profilesDataSource
-                .getProfiles()
+            reposDataSource
+                .getRepos(loginProfile)
                 .subscribeBy(
                     onSuccess = {
-                        liveData.postValue(AppState.SuccessProfiles(it))
+                        liveData.postValue(AppState.SuccessRepos(it))
                     },
                     onError = {
                         liveData.postValue(AppState.Error(it))

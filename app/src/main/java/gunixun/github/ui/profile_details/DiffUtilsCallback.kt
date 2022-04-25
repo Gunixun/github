@@ -22,8 +22,8 @@ class DiffUtilsCallback (
         val oldItem = oldItems[newPos]
         val newItem = newItems[newPos]
         return oldItem.name == newItem.name
-                && oldItem.full_name == newItem.full_name
-                && oldItem.html_url == newItem.html_url
+                && oldItem.fullName == newItem.fullName
+                && oldItem.htmlUrl == newItem.htmlUrl
                 && oldItem.description == newItem.description
                 && oldItem.language == newItem.language
     }
