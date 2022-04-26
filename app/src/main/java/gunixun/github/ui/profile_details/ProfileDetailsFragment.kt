@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.google.android.material.snackbar.Snackbar
 import gunixun.github.R
-import gunixun.github.app
 import gunixun.github.databinding.FragmentProfileDetailsBinding
 import gunixun.github.domain.entities.Profile
 import gunixun.github.ui.BaseFragment
@@ -15,6 +14,7 @@ import gunixun.github.ui.utils.AppState
 import gunixun.github.ui.utils.createErrSnackBar
 import gunixun.github.ui.utils.createMsgSnackBar
 import gunixun.github.ui.utils.hideSnackBar
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfileDetailsFragment :
     BaseFragment<FragmentProfileDetailsBinding>(FragmentProfileDetailsBinding::inflate) {
@@ -23,11 +23,7 @@ class ProfileDetailsFragment :
 
     var profile: Profile? = null
 
-    private val viewModel: ReposContract.ViewModel by lazy {
-        ReposViewModel(
-            requireActivity().app.reposDataSource
-        )
-    }
+    private val viewModel: ReposViewModelAbs by viewModel()
 
     private var retryIter: Int = 0
     private var snackBar: Snackbar? = null

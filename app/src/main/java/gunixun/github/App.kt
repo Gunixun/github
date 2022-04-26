@@ -2,23 +2,21 @@ package gunixun.github
 
 import android.app.Application
 import android.content.Context
-import gunixun.github.data.use_cases.ProfilesDataSource
-import gunixun.github.data.use_cases.ReposDataSource
-import gunixun.github.data.web.github.GitHubProjectRepoImpl
-import gunixun.github.domain.ProjectRepo
-import gunixun.github.domain.use_cases.ProfilesUseCase
-import gunixun.github.domain.use_cases.ReposUseCase
+import gunixun.github.di.appModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.GlobalContext.startKoin
 
 class App : Application() {
-    private val gitHubApi: ProjectRepo by lazy { GitHubProjectRepoImpl() }
 
-    val profilesDataSource: ProfilesUseCase by lazy {
-        ProfilesDataSource(app.gitHubApi)
-    }
-    val reposDataSource: ReposUseCase by lazy {
-        ReposDataSource(app.gitHubApi)
+
+    override fun onCreate() {
+        super.onCreate()
+
+        startKoin {
+            androidLogger()
+            androidContext(this@App)
+            modules(appModule)
+        }
     }
 }
-
-val Context.app: App
-    get() = this.applicationContext as App
