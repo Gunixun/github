@@ -9,7 +9,7 @@ import io.reactivex.rxjava3.kotlin.subscribeBy
 
 class ProfilesViewModel(
     private val profilesDataSource: ProfilesUseCase
-) : ViewModel(), ProfilesContract.ViewModel {
+) : ProfilesViewModelAbs() {
 
     private val liveData: MutableLiveData<AppState> = MutableLiveData()
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()

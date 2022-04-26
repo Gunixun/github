@@ -5,8 +5,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import gunixun.github.databinding.FragmentProfileItemBinding
 import gunixun.github.domain.entities.Profile
-import gunixun.github.utils.Change
-import gunixun.github.utils.createCombinePayloads
+import gunixun.github.ui.utils.Change
+import gunixun.github.ui.utils.createCombinePayloads
 
 class ProfilesAdapter(
     private val itemClickCallback: (Profile) -> Unit

@@ -7,7 +7,6 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import gunixun.github.R
-import gunixun.github.app
 import gunixun.github.databinding.FragmentProfilesBinding
 import gunixun.github.domain.entities.Profile
 import gunixun.github.ui.BaseFragment
@@ -15,15 +14,14 @@ import gunixun.github.ui.utils.AppState
 import gunixun.github.ui.utils.createErrSnackBar
 import gunixun.github.ui.utils.createMsgSnackBar
 import gunixun.github.ui.utils.hideSnackBar
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ProfilesFragment :
     BaseFragment<FragmentProfilesBinding>(FragmentProfilesBinding::inflate) {
 
     private lateinit var adapter: ProfilesAdapter
 
-    private val viewModel: ProfilesContract.ViewModel by lazy {
-        ProfilesViewModel(requireActivity().app.profilesDataSource)
-    }
+    private val viewModel: ProfilesViewModelAbs by viewModel()
 
     private val controller by lazy { activity as Controller }
 

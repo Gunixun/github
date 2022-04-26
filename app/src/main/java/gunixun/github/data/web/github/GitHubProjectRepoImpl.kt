@@ -10,14 +10,9 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-class GitHubProjectRepoImpl : ProjectRepo {
-
-    private val retrofit = Retrofit.Builder()
-        .baseUrl("https://api.github.com/")
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
-    private val api: GitHubApi = retrofit.create(GitHubApi::class.java)
+class GitHubProjectRepoImpl(
+    private val api: GitHubApi
+) : ProjectRepo {
 
     override fun getProfiles(): Single<List<Profile>> {
         return api.getProfiles().map { convertProfilesDtoToEntity(it) }

@@ -2,7 +2,7 @@ package gunixun.github.ui.profile_details
 
 import androidx.recyclerview.widget.DiffUtil
 import gunixun.github.domain.entities.Repo
-import gunixun.github.utils.Change
+import gunixun.github.ui.utils.Change
 
 class DiffUtilsCallback (
     private val newItems: List<Repo>,
