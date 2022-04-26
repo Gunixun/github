@@ -1,4 +1,4 @@
-package gunixun.github.utils
+package gunixun.github.ui.utils
 
 data class Change<out T> (
     val oldData: T,

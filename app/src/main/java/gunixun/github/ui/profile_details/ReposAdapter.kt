@@ -5,8 +5,9 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import gunixun.github.databinding.FragmentRepoItemBinding
 import gunixun.github.domain.entities.Repo
-import gunixun.github.utils.Change
-import gunixun.github.utils.createCombinePayloads
+import gunixun.github.ui.utils.Change
+import gunixun.github.ui.utils.createCombinePayloads
+
 
 class ReposAdapter : RecyclerView.Adapter<RepoViewHolder>() {
 
