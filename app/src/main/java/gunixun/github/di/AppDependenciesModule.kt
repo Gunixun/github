@@ -1,8 +1,6 @@
 package gunixun.github.di
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import gunixun.github.data.use_cases.ProfilesDataSource
@@ -12,7 +10,6 @@ import gunixun.github.data.web.github.GitHubProjectRepoImpl
 import gunixun.github.domain.ProjectRepo
 import gunixun.github.domain.use_cases.ProfilesUseCase
 import gunixun.github.domain.use_cases.ReposUseCase
-import gunixun.github.ui.profiles.ProfilesViewModelFactory
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
