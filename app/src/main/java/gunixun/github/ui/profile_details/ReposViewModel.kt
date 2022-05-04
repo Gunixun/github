@@ -1,7 +1,6 @@
 package gunixun.github.ui.profile_details
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import gunixun.github.domain.use_cases.ReposUseCase
 import gunixun.github.ui.utils.AppState
 import io.reactivex.rxjava3.disposables.CompositeDisposable

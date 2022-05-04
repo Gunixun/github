@@ -7,14 +7,16 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import coil.load
 import com.google.android.material.snackbar.Snackbar
 import gunixun.github.R
+import gunixun.github.app
 import gunixun.github.databinding.FragmentProfileDetailsBinding
 import gunixun.github.domain.entities.Profile
+import gunixun.github.domain.use_cases.ReposUseCase
 import gunixun.github.ui.BaseFragment
 import gunixun.github.ui.utils.AppState
 import gunixun.github.ui.utils.createErrSnackBar
 import gunixun.github.ui.utils.createMsgSnackBar
 import gunixun.github.ui.utils.hideSnackBar
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import javax.inject.Inject
 
 class ProfileDetailsFragment :
     BaseFragment<FragmentProfileDetailsBinding>(FragmentProfileDetailsBinding::inflate) {
@@ -23,7 +25,12 @@ class ProfileDetailsFragment :
 
     var profile: Profile? = null
 
-    private val viewModel: ReposViewModelAbs by viewModel()
+    @Inject
+    lateinit var reposDataSource: ReposUseCase
+
+    private val viewModel: ReposViewModel by lazy {
+        ReposViewModel(reposDataSource)
+    }
 
     private var retryIter: Int = 0
     private var snackBar: Snackbar? = null
@@ -38,6 +45,11 @@ class ProfileDetailsFragment :
                 }
             }
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requireContext().app.appDependenciesComponent.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

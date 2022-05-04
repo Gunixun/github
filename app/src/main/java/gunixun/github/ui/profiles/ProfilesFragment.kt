@@ -1,5 +1,6 @@
 package gunixun.github.ui.profiles
 
+import gunixun.github.app
 import android.content.Context
 import android.os.Bundle
 import android.view.View
@@ -9,19 +10,25 @@ import com.google.android.material.snackbar.Snackbar
 import gunixun.github.R
 import gunixun.github.databinding.FragmentProfilesBinding
 import gunixun.github.domain.entities.Profile
+import gunixun.github.domain.use_cases.ProfilesUseCase
 import gunixun.github.ui.BaseFragment
 import gunixun.github.ui.utils.AppState
 import gunixun.github.ui.utils.createErrSnackBar
 import gunixun.github.ui.utils.createMsgSnackBar
 import gunixun.github.ui.utils.hideSnackBar
-import org.koin.androidx.viewmodel.ext.android.viewModel
+import javax.inject.Inject
 
 class ProfilesFragment :
     BaseFragment<FragmentProfilesBinding>(FragmentProfilesBinding::inflate) {
 
     private lateinit var adapter: ProfilesAdapter
 
-    private val viewModel: ProfilesViewModelAbs by viewModel()
+    @Inject
+    lateinit var profilesDataSource: ProfilesUseCase
+
+    private val viewModel: ProfilesViewModel by lazy {
+        ProfilesViewModel(profilesDataSource)
+    }
 
     private val controller by lazy { activity as Controller }
 
@@ -36,6 +43,12 @@ class ProfilesFragment :
         fun newInstance() = ProfilesFragment()
     }
 
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requireContext().app.appDependenciesComponent.inject(this)
+
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
